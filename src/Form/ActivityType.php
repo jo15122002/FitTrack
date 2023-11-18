@@ -3,12 +3,12 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -23,7 +23,6 @@ class ActivityType extends AbstractType
                     'Course à pied' => 'course_a_pied',
                     'Cyclisme' => 'cyclisme',
                     'Natation' => 'natation',
-                    // Ajoutez d'autres types d'activités au besoin
                 ],
                 'required' => true,
             ])
@@ -35,16 +34,14 @@ class ActivityType extends AbstractType
                     new Assert\Range(['min' => 0]),
                 ],
             ])
-            ->add('duration', TimeType::class, [
-                'label' => 'Durée (hh:mm:ss)',
+            ->add('duration', NumberType::class, [
+                'label' => 'Durée en minutes',
                 'required' => true,
             ])
-            ->add('date', DateType::class, [
+            ->add('date', DateTimeType::class, [
                 'label' => 'Date de l\'activité',
-                'widget' => 'single_text',
-                'html5' => false,
-                'format' => 'yyyy-MM-dd',
                 'required' => true,
+                'widget' => 'single_text',
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer l\'activité',

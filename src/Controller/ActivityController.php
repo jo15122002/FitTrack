@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Activity;
 use App\Form\ActivityType;
 use App\Repository\ActivityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,7 @@ class ActivityController extends AbstractController
     }
 
     #[Route('/activity/add', name: 'app_activity_add')]
-    public function add(Request $request)
+    public function add(Request $request, EntityManagerInterface $entityManager)
     {
         $activity = new Activity();
         $form = $this->createForm(ActivityType::class, $activity);
@@ -29,10 +30,12 @@ class ActivityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Enregistrez l'activité en base de données
-            // ...
+            $activity = $form->getData();
+            $activity->setAuthor($this->getUser());
 
-            // Redirigez l'utilisateur vers une page appropriée
+            $entityManager->persist($activity);
+            $entityManager->flush();
+
             return $this->redirectToRoute('activity_list');
         }
 
