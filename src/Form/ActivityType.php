@@ -48,6 +48,7 @@ class ActivityType extends AbstractType
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer l\'activité',
+                'attr' => ['class' => 'btn btn-primary'],
             ]);
     }
 
