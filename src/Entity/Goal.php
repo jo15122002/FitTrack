@@ -26,7 +26,7 @@ class Goal
     private ?User $author = null;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private ?GoalStatus $status = null;
+    private ?string $status = null;
 
     public function getId(): ?int
     {
@@ -69,13 +69,17 @@ class Goal
         return $this;
     }
 
-    public function getStatus(): ?GoalStatus
+    public function getStatus(): ?string
     {
-        return $this->status;
+        return $this->status ? $this->status->value : null;
     }
 
-    public function setStatus(GoalStatus $status): static
+    public function setStatus($status): self
     {
+        if (is_string($status)) {
+            $status = GoalStatus::from($status);
+        }
+
         $this->status = $status;
 
         return $this;

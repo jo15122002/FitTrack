@@ -1,0 +1,33 @@
+{# templates/goal/add.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un Objectif{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Ajouter un Objectif</h1>
+
+        {{ form_start(form) }}
+
+        <div class="form-group">
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.deadline) }}
+            {{ form_widget(form.deadline, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.deadline) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.status) }}
+            {{ form_widget(form.status, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.status) }}
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
