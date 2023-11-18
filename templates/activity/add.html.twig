@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter une activité - Mon Application Fitness</title>
+</head>
+<body>
+<header>
+    <h1>Ajouter une activité</h1>
+</header>
+<nav>
+{#    <ul>#}
+{#        <li><a href="{{ path('dashboard') }}">Tableau de bord</a></li>#}
+{#        <li><a href="{{ path('activity_list') }}">Liste des activités</a></li>#}
+{#        <li><a href="{{ path('goal_list') }}">Liste des objectifs</a></li>#}
+{#    </ul>#}
+</nav>
+<main>
+    <form method="post" action="{{ path('app_activity_add') }}">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        <div>
+            {{ form_label(form.type, 'Type d\'activité') }}
+            {{ form_widget(form.type) }}
+            {{ form_errors(form.type) }}
+        </div>
+
+        <div>
+            {{ form_label(form.distance, 'Distance (en kilomètres)') }}
+            {{ form_widget(form.distance) }}
+            {{ form_errors(form.distance) }}
+        </div>
+
+        <div>
+            {{ form_label(form.duration, 'Durée (en minutes)') }}
+            {{ form_widget(form.duration) }}
+            {{ form_errors(form.duration) }}
+        </div>
+
+        <div>
+            {{ form_label(form.date, 'Date et heure de l\'activité') }}
+            {{ form_widget(form.date) }}
+            {{ form_errors(form.date) }}
+        </div>
+
+        {{ form_end(form) }}
+    </form>
+</main>
+<footer>
+    <p>&copy; {{ "now"|date("Y") }} Mon Application Fitness</p>
+</footer>
+</body>
+</html>

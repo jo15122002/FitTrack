@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomePageController!{% endblock %}
+
+{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil - Mon Application Fitness</title>
+</head>
+<body>
+    <header>
+        <h1>Bienvenue sur Mon Application Fitness</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{{ path('dashboard') }}">Tableau de bord</a></li>
+            <li><a href="{{ path('activity_list') }}">Liste des activités</a></li>
+            <li><a href="{{ path('goal_list') }}">Liste des objectifs</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section>
+            <h2>Votre suivi de fitness personnel</h2>
+            <p>Commencez à enregistrer vos activités, définissez des objectifs et suivez votre progression.</p>
+            <a href="{{ path('activity_create') }}" class="btn btn-primary">Enregistrer une activité</a>
+        </section>
+        <section>
+            <h2>Vos objectifs de fitness</h2>
+            <p>Consultez vos objectifs actuels et suivez votre avancement vers un mode de vie plus sain.</p>
+            <a href="{{ path('goal_create') }}" class="btn btn-primary">Créer un nouvel objectif</a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; {{ "now"|date("Y") }} Mon Application Fitness</p>
+    </footer>
+</body>
+</html>
+{% endblock %}
