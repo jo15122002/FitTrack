@@ -29,11 +29,21 @@ class WorkoutPlanController extends AbstractController
     public function list(WorkoutPlanRepository $workoutPlanRepository): Response
     {
         $workoutPlans = $workoutPlanRepository->findAll();
-
-
+        
         return $this->render('workout_plan/list.html.twig', [
             'controller_name' => 'WorkoutPlanController',
             'workoutPlans' => $workoutPlans,
+        ]);
+    }
+
+    #[Route('/workoutplan/{id}', name: 'app_workout_plan_show')]
+    public function show(WorkoutPlanRepository $workoutPlanRepository, int $id): Response
+    {
+        $workoutPlan = $workoutPlanRepository->find($id);
+
+        return $this->render('workout_plan/show.html.twig', [
+            'controller_name' => 'WorkoutPlanController',
+            'workoutPlan' => $workoutPlan,
         ]);
     }
 }

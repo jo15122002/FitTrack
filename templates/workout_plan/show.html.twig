@@ -1,0 +1,37 @@
+{# templates/workout_plan/show.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du Plan d'Entraînement{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Détails du Plan d'Entraînement</h1>
+
+        {# Afficher les détails du plan d'entraînement #}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ workoutPlan.description }}</h5>
+                <p class="card-text">
+                    <strong>ID:</strong> {{ workoutPlan.id }}<br>
+                    <strong>Description:</strong> {{ workoutPlan.description }}
+                </p>
+            </div>
+        </div>
+
+        {# Liste des activités associées au plan d'entraînement #}
+        <h2>Activités Associées</h2>
+        <ul class="list-group">
+            {% for activity in workoutPlan.activities %}
+                <li class="list-group-item">
+                    Activité: {{ activity.type }} |
+                    Distance: {{ activity.distance }} km |
+                    Durée: {{ activity.duration }} min |
+                    Date: {{ activity.date|date('Y-m-d') }}
+                </li>
+            {% else %}
+                <li class="list-group-item">Aucune activité associée à ce plan.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

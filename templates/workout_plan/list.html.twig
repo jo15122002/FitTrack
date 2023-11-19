@@ -18,7 +18,7 @@
             </thead>
             <tbody>
             {% for plan in workoutPlans %}
-                <tr>
+                <tr onclick="location.href='{{ path('app_workout_plan_show', {'id': plan.id}) }}'" style="cursor: pointer;">
                     <th scope="row">{{ plan.id }}</th>
                     <td>{{ plan.description }}</td>
                     <td>
