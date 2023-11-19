@@ -10,44 +10,62 @@ use App\Enum\GoalStatus;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        // Création d'un utilisateur
-        $user = new User();
-        $user->setUsername('userdemo')
-            ->setEmail('user@example.com')
-            ->setPassword('password'); // En production, utilisez une méthode d'encodage de mot de passe
+        $output = new ConsoleOutput();
+        // Créer plusieurs utilisateurs
+        for ($i = 0; $i < 5; $i++) {
+            $user = new User();
+            $user->setUsername('user' . $i)
+                ->setEmail('user' . $i . '@example.com')
+                ->setPassword('password' . $i); // Utilisez un encodeur de mot de passe en production
 
-        $manager->persist($user);
+            $manager->persist($user);
+            $manager->flush();
 
-        // Création d'une activité
-        $activity = new Activity();
-        $activity->setType('Course à pied')
-            ->setDistance(5.0)
-            ->setDuration(30)
-            ->setDate(new DateTime())
-            ->setAuthor($user);
+            $activities = [];
+            // Créer quelques activités pour chaque utilisateur
+            for ($j = 0; $j < 3; $j++) {
+                $activity = new Activity();
+                $activity->setType('Type ' . $j)
+                    ->setDistance(5 * $j)
+                    ->setDuration(30 * $j)
+                    ->setName('Activité ' . $j)
+                    ->setDate(new DateTime())
+                    ->setAuthor($user);
 
-        $manager->persist($activity);
+                $manager->persist($activity);
+                $activities[] = $activity;
+            }
+            $manager->flush();
 
-        // Création d'un objectif
-        $goal = new Goal();
-        $goal->setDescription('Courir 10 km')
-            ->setDeadline(new DateTime('+1 month'))
-            ->setAuthor($user)
-            ->setStatus(GoalStatus::IN_PROGRESS);
+            // Créer des objectifs pour chaque utilisateur
+            for ($k = 0; $k < 2; $k++) {
+                $goal = new Goal();
+                $goal->setDescription('Objectif ' . $k)
+                    ->setDeadline(new DateTime('+1 month'))
+                    ->setAuthor($user)
+                    ->setStatus('En cours'); // Assurez-vous que cette valeur est valide
 
-        $manager->persist($goal);
+                $manager->persist($goal);
+            }
+            $manager->flush();
 
-        // Création d'un plan d'entraînement
-        $workoutPlan = new WorkoutPlan();
-        $workoutPlan->setDescription('Plan Marathon')
-            ->addActivity($activity);
+            // Créer un plan d'entraînement pour chaque utilisateur
+            $workoutPlan = new WorkoutPlan();
+            $workoutPlan->setDescription('Plan ' . $i);
+            foreach ($activities as $activity) {
+                $workoutPlan->addActivity($activity);
+                $manager->persist($activity);
+            }
 
-        $manager->persist($workoutPlan);
+            $manager->persist($workoutPlan);
+            $manager->flush();
+        }
 
         // Enregistrer toutes les entités
         $manager->flush();
