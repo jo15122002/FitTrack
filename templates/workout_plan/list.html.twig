@@ -1,0 +1,36 @@
+{# templates/workout_plan/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Plans d'Entraînement{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Liste des Plans d'Entraînement</h1>
+
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Description</th>
+                <th scope="col">Activités</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for plan in workoutPlans %}
+                <tr>
+                    <th scope="row">{{ plan.id }}</th>
+                    <td>{{ plan.description }}</td>
+                    <td>
+                        {% for activity in plan.activities %}
+                            {{ activity.name }}{% if not loop.last %}, {% endif %}
+                        {% else %}
+                            Aucune activité
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
