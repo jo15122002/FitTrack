@@ -5,31 +5,6 @@
 {% block title %}Accueil - Mon Application{% endblock %}
 
 {% block body %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="#">Mon Application</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Fonctionnalités</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Prix</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
     <header class="jumbotron jumbotron-fluid">
         <div class="container text-center">
             <h1 class="display-4">Bienvenue sur FitTrack</h1>
@@ -68,14 +43,9 @@
             </div>
         </div>
     </section>
-
-    <footer class="bg-dark text-white text-center py-3 mt-4">
-        <p>&copy; {{ "now"|date("Y") }} Mon Application. Tous droits réservés.</p>
-    </footer>
 {% endblock %}
 
 {% block javascripts %}
-    {# Assurez-vous d'inclure les scripts JavaScript nécessaires pour Bootstrap ici, si nécessaire #}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
