@@ -54,4 +54,14 @@ class ActivityController extends AbstractController
             'activities' => $activities,
         ]);
     }
+
+    #[Route('/activity/{id}', name: 'app_activity_show')]
+    public function show(ActivityRepository $activityRepository, int $id)
+    {
+        $activity = $activityRepository->find($id);
+
+        return $this->render('activity/show.html.twig', [
+            'activity' => $activity,
+        ]);
+    }
 }

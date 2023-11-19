@@ -23,7 +23,7 @@
         <h2>Activités Associées</h2>
         <ul class="list-group">
             {% for activity in workoutPlan.activities %}
-                <li class="list-group-item">
+                <li class="list-group-item" onclick="location.href='{{ path('app_activity_show', {'id': activity.id}) }}'" style="cursor: pointer;">
                     Activité: {{ activity.type }} |
                     Distance: {{ activity.distance }} km |
                     Durée: {{ activity.duration }} min |

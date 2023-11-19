@@ -1,0 +1,26 @@
+{# templates/activity/show.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'Activité{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Détails de l'Activité</h1>
+
+        {# Afficher les détails de l'activité #}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ activity.type }}</h5>
+                <p class="card-text">
+                    <strong>ID:</strong> {{ activity.id }}<br>
+                    <strong>Type:</strong> {{ activity.type }}<br>
+                    <strong>Distance:</strong> {{ activity.distance }} km<br>
+                    <strong>Durée:</strong> {{ activity.duration }} min<br>
+                    <strong>Date:</strong> {{ activity.date|date('Y-m-d H:i:s') }}<br>
+                    <strong>Auteur:</strong> {{ activity.author.username }}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
