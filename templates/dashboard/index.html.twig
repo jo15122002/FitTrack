@@ -1,0 +1,43 @@
+{# templates/dashboard/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de Bord{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Tableau de Bord</h1>
+
+        {# Section des Statistiques #}
+        <section class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="card border-primary">
+                    <div class="card-body">
+                        <h2 class="card-title">Statistique 1</h2>
+                        <p class="card-text">Détails de la statistique 1</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-primary">
+                    <div class="card-body">
+                        <h2 class="card-title">Statistique 2</h2>
+                        <p class="card-text">Détails de la statistique 2</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-primary">
+                    <div class="card-body">
+                        <h2 class="card-title">Statistique 3</h2>
+                        <p class="card-text">Détails de la statistique 3</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {# Autres Sections #}
+        <!-- Vous pouvez ajouter d'autres sections ici, comme des graphiques, des tableaux, etc. -->
+
+    </div>
+{% endblock %}
