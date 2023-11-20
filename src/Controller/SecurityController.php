@@ -17,4 +17,10 @@ class SecurityController extends AbstractController
 
         return $this->render('security/login.html.twig', ['error' => $error]);
     }
+
+    #[Route('/logout', name: 'app_logout')]
+    public function logout()
+    {
+        // Le code de déconnexion est géré par Symfony, donc cette méthode peut être laissée vide
+    }
 }
