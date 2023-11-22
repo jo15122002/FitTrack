@@ -107,4 +107,14 @@ class WorkoutPlanController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/workoutplan/delete/{id}', name: 'app_workout_plan_delete')]
+    public function delete(WorkoutPlanRepository $workoutPlanRepository, int $id, EntityManagerInterface $entityManager): Response
+    {
+        $workoutPlan = $workoutPlanRepository->find($id);
+        $entityManager->remove($workoutPlan);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_workout_plan_list');
+    }
 }
