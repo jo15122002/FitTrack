@@ -88,4 +88,23 @@ class WorkoutPlanController extends AbstractController
             'workoutPlan' => $workoutPlan,
         ]);
     }
+
+    #[Route('/workoutplan/edit/{id}', name: 'app_workout_plan_edit')]
+    public function edit(WorkoutPlanRepository $workoutPlanRepository, int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $workoutPlan = $workoutPlanRepository->find($id);
+        $form = $this->createForm(WorkoutPlanType::class, $workoutPlan);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($workoutPlan);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_workout_plan_list');
+        }
+
+        return $this->render('workout_plan/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }

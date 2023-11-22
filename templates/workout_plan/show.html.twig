@@ -1,5 +1,3 @@
-{# templates/workout_plan/show.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Détails du Plan d'Entraînement{% endblock %}
@@ -19,11 +17,14 @@
             </div>
         </div>
 
+        {# Bouton d'édition #}
+        <a href="{{ path('app_workout_plan_edit', {'id': workoutPlan.id}) }}" class="btn btn-warning">Éditer ce Plan</a>
+
         {# Liste des activités associées au plan d'entraînement #}
         <h2>Activités Associées</h2>
         <ul class="list-group">
             {% for activity in workoutPlan.activities %}
-                <li class="list-group-item" onclick="location.href='{{ path('app_activity_show', {'id': activity.id}) }}'" style="cursor: pointer;">
+                <li class="list-group-item">
                     Activité: {{ activity.type }} |
                     Distance: {{ activity.distance }} km |
                     Durée: {{ activity.duration }} min |
@@ -33,5 +34,8 @@
                 <li class="list-group-item">Aucune activité associée à ce plan.</li>
             {% endfor %}
         </ul>
+
+        {# Lien pour retourner à la liste des plans ou autre navigation #}
+        <a href="{{ path('app_workout_plan_list') }}" class="btn btn-primary mt-3">Retour à la liste</a>
     </div>
 {% endblock %}

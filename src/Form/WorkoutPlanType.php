@@ -15,9 +15,7 @@ class WorkoutPlanType extends AbstractType
         $builder
             ->add('description', TextType::class, [
                 'label' => 'Description du Plan'
-            ])
-            // Ajoutez ici d'autres champs si nécessaire
-            ->add('save', SubmitType::class, ['label' => 'Créer le Plan']);
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
