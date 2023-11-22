@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Objectifs{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Mes Objectifs</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Description</th>
+                <th>Échéance</th>
+                <th>Statut</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for goal in goals %}
+                <tr onclick="window.location.href='{{ path('app_goal_show', {'id': goal.id}) }}'" style="cursor: pointer;">
+                    <td>{{ goal.description }}</td>
+                    <td>{{ goal.deadline|date('Y-m-d') }}</td>
+                    <td>{{ goal.status }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucun objectif trouvé.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
