@@ -11,9 +11,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class WorkoutPlanController extends AbstractController
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     #[Route('/workoutplan', name: 'app_workout_plan')]
     public function index(): Response
     {
@@ -31,6 +39,16 @@ class WorkoutPlanController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->security->getUser();
+            if (!$user) {
+                // Gérer le cas où aucun utilisateur n'est connecté
+                throw $this->createAccessDeniedException('Vous devez être connecté pour créer un plan.');
+            }
+
+            // Associer l'utilisateur connecté à l'entité WorkoutPlan
+            // Supposons que votre entité WorkoutPlan a une méthode setUser() pour cela
+            $workoutPlan->setAuthor($user);
+
             $entityManager->persist($workoutPlan);
             $entityManager->flush();
 
@@ -45,8 +63,15 @@ class WorkoutPlanController extends AbstractController
     #[Route('/workoutplan/list', name: 'app_workout_plan_list')]
     public function list(WorkoutPlanRepository $workoutPlanRepository): Response
     {
-        $workoutPlans = $workoutPlanRepository->findAll();
-        
+        $user = $this->security->getUser();
+        if (!$user) {
+            // Gérer le cas où aucun utilisateur n'est connecté
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
+
+        // Récupérer uniquement les WorkoutPlan liés à l'utilisateur connecté
+        $workoutPlans = $workoutPlanRepository->findByUser($user);
+
         return $this->render('workout_plan/list.html.twig', [
             'controller_name' => 'WorkoutPlanController',
             'workoutPlans' => $workoutPlans,

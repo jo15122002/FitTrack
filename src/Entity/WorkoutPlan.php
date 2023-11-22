@@ -21,6 +21,10 @@ class WorkoutPlan
     #[ORM\ManyToMany(targetEntity: Activity::class, inversedBy: 'workoutPlans')]
     private Collection $activities;
 
+    #[ORM\ManyToOne(inversedBy: 'workoutPlans')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -63,6 +67,18 @@ class WorkoutPlan
     public function removeActivity(Activity $activity): static
     {
         $this->activities->removeElement($activity);
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }

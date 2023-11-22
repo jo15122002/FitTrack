@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -36,6 +37,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $username = null;
+
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: WorkoutPlan::class, orphanRemoval: true)]
+    private Collection $workoutPlans;
+
+    public function __construct()
+    {
+        $this->workoutPlans = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -177,6 +186,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername(string $username): static
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, WorkoutPlan>
+     */
+    public function getWorkoutPlans(): Collection
+    {
+        return $this->workoutPlans;
+    }
+
+    public function addWorkoutPlan(WorkoutPlan $workoutPlan): static
+    {
+        if (!$this->workoutPlans->contains($workoutPlan)) {
+            $this->workoutPlans->add($workoutPlan);
+            $workoutPlan->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkoutPlan(WorkoutPlan $workoutPlan): static
+    {
+        if ($this->workoutPlans->removeElement($workoutPlan)) {
+            // set the owning side to null (unless already changed)
+            if ($workoutPlan->getAuthor() === $this) {
+                $workoutPlan->setAuthor(null);
+            }
+        }
 
         return $this;
     }
