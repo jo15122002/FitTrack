@@ -20,7 +20,16 @@
         {# Boutons pour l'édition et le retour à la liste #}
         <div class="mt-3">
             <a href="{{ path('app_goal_edit', {'id': goal.id}) }}" class="btn btn-warning">Éditer</a>
+            <button type="button" class="btn btn-danger" onclick="confirmDeletion('{{ path('app_goal_delete', {'id': goal.id}) }}')">Supprimer</button>
             <a href="{{ path('app_goal_list') }}" class="btn btn-primary">Retour à la liste des objectifs</a>
         </div>
     </div>
+
+    <script>
+        function confirmDeletion(url) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cet objectif ?')) {
+                window.location.href = url;
+            }
+        }
+    </script>
 {% endblock %}

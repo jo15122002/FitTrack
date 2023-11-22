@@ -107,4 +107,20 @@ class GoalController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/goal/delete/{id}', name: 'app_goal_delete')]
+    public function delete(int $id, GoalRepository $goalRepository, EntityManagerInterface $entityManager)
+    {
+        $goal = $goalRepository->find($id);
+
+        if (!$goal) {
+            throw $this->createNotFoundException('Objectif non trouvé.');
+        }
+
+        $entityManager->remove($goal);
+        $entityManager->flush();
+
+        // Redirigez l'utilisateur vers une page appropriée
+        return $this->redirectToRoute('app_goal_list');
+    }
 }
