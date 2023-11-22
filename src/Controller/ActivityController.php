@@ -64,4 +64,37 @@ class ActivityController extends AbstractController
             'activity' => $activity,
         ]);
     }
+
+    #[Route('/activity/edit/{id}', name: 'app_activity_edit')]
+    public function edit(Request $request, EntityManagerInterface $entityManager, ActivityRepository $activityRepository, int $id)
+    {
+        $activity = $activityRepository->find($id);
+        $form = $this->createForm(ActivityType::class, $activity);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $activity = $form->getData();
+            $activity->setAuthor($this->getUser());
+
+            $entityManager->persist($activity);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_workout_plan_list');
+        }
+
+        return $this->render('activity/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/activity/delete/{id}', name: 'app_activity_delete')]
+    public function delete(EntityManagerInterface $entityManager, ActivityRepository $activityRepository, int $id)
+    {
+        $activity = $activityRepository->find($id);
+        $entityManager->remove($activity);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('activity_list');
+    }
 }

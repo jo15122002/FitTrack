@@ -22,5 +22,22 @@
                 </p>
             </div>
         </div>
+        <div>
+            {# Boutons d'édition et de suppression #}
+            <a href="{{ path('app_activity_edit', {'id': activity.id}) }}" class="btn btn-warning">Éditer</a>
+            <button type="button" class="btn btn-danger" onclick="confirmDeletion('{{ path('app_activity_delete', {'id': activity.id}) }}')">Supprimer</button>
+
+            {# Lien pour retourner à la liste des activités ou autre navigation #}
+            <a href="{{ path('app_activity_list') }}" class="btn btn-primary">Retour à la liste</a>
+
+        </div>
     </div>
+
+    <script>
+        function confirmDeletion(url) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette activité ?')) {
+                window.location.href = url;
+            }
+        }
+    </script>
 {% endblock %}
