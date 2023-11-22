@@ -11,37 +11,50 @@ use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
+
     public function load(ObjectManager $manager)
     {
         $output = new ConsoleOutput();
+
         // Créer plusieurs utilisateurs
         for ($i = 0; $i < 5; $i++) {
             $user = new User();
             $user->setUsername('user' . $i)
                 ->setEmail('user' . $i . '@example.com')
-                ->setPassword('password' . $i); // Utilisez un encodeur de mot de passe en production
+                ->setPassword($this->passwordHasher->hashPassword($user, 'password'));
 
             $manager->persist($user);
-            $manager->flush();
 
-            $activities = [];
             // Créer quelques activités pour chaque utilisateur
             for ($j = 0; $j < 3; $j++) {
                 $activity = new Activity();
                 $activity->setType('Type ' . $j)
                     ->setDistance(5 * $j)
                     ->setDuration(30 * $j)
-                    ->setName('Activité ' . $j)
                     ->setDate(new DateTime())
-                    ->setAuthor($user);
+                    ->setAuthor($user)
+                    ->setName('Activité ' . $j);
 
                 $manager->persist($activity);
-                $activities[] = $activity;
+
+                // Créer un plan d'entraînement pour chaque activité
+                $workoutPlan = new WorkoutPlan();
+                $workoutPlan->setDescription('Plan ' . $i . ' - Activité ' . $j)
+                    ->addActivity($activity)
+                    ->setAuthor($user);
+
+                $manager->persist($workoutPlan);
             }
-            $manager->flush();
 
             // Créer des objectifs pour chaque utilisateur
             for ($k = 0; $k < 2; $k++) {
@@ -53,21 +66,10 @@ class AppFixtures extends Fixture
 
                 $manager->persist($goal);
             }
-            $manager->flush();
 
-            // Créer un plan d'entraînement pour chaque utilisateur
-            $workoutPlan = new WorkoutPlan();
-            $workoutPlan->setDescription('Plan ' . $i);
-            foreach ($activities as $activity) {
-                $workoutPlan->addActivity($activity);
-                $manager->persist($activity);
-            }
-
-            $manager->persist($workoutPlan);
-            $manager->flush();
+            $output->writeln('Utilisateur ' . $user->getUsername() . ' et ses données associées créés.');
         }
 
-        // Enregistrer toutes les entités
         $manager->flush();
     }
 }
