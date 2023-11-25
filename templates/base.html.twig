@@ -21,24 +21,25 @@
         </button>
         {% if app.user %}
         <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href={{ path("app_dashboard") }}>Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href={{ path("app_goal_list") }}>Objectifs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href={{ path("app_workout_plan_list") }}>Plans d'entraînement</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="btn btn-danger" href="{{ path('app_logout') }}">Déconnexion</a>
-                    </li>
-                </ul>
-            {% endif %}
+            {% set current_route = app.request.attributes.get('_route') %}
+            <ul class="navbar-nav">
+                <li class="nav-item {% if current_route == 'app_dashboard' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('app_dashboard') }}">Dashboard</a>
+                </li>
+                <li class="nav-item {% if current_route == 'app_goal_list' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('app_goal_list') }}">Objectifs</a>
+                </li>
+                <li class="nav-item {% if current_route == 'app_workout_plan_list' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('app_workout_plan_list') }}">Plans d'entraînement</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="btn btn-danger" href="{{ path('app_logout') }}">Déconnexion</a>
+                </li>
+            </ul>
         </div>
+        {% endif %}
     </div>
 </nav>
 
