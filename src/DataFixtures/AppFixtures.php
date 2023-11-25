@@ -49,7 +49,7 @@ class AppFixtures extends Fixture
 
                 // Créer un plan d'entraînement pour chaque activité
                 $workoutPlan = new WorkoutPlan();
-                $workoutPlan->setDescription('Plan ' . $i . ' - Activité ' . $j)
+                $workoutPlan->setDescription('Plan ' . $i)
                     ->addActivity($activity)
                     ->setAuthor($user);
 
