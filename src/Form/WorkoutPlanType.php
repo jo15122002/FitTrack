@@ -15,6 +15,10 @@ class WorkoutPlanType extends AbstractType
         $builder
             ->add('description', TextType::class, [
                 'label' => 'Description du Plan'
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Enregistrer',
+                'attr' => ['class' => 'btn btn-primary'],
             ]);
     }
 
