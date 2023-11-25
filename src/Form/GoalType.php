@@ -49,7 +49,7 @@ class GoalType extends AbstractType
                 },
                 'choice_label' => 'description',
                 'multiple' => true,
-                'expanded' => false,
+                'expanded' => true,
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer l\'objectif',

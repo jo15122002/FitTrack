@@ -7,7 +7,34 @@
         <h1>Éditer l'Objectif</h1>
 
         {{ form_start(form) }}
-        {{ form_widget(form) }}
+
+        <div class="mb-3">
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.deadline) }}
+            {{ form_widget(form.deadline, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.status) }}
+            {{ form_widget(form.status, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.workoutPlans) }}
+            <div class="border p-2">
+                {% for workoutPlan in form.workoutPlans %}
+                    <div class="form-check">
+                        {{ form_widget(workoutPlan, {'attr': {'class': 'form-check-input'}}) }}
+                        {{ form_label(workoutPlan, null, {'attr': {'class': 'form-check-label'}}) }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
         {{ form_end(form) }}
     </div>
 {% endblock %}
