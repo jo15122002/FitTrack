@@ -21,6 +21,39 @@ class ActivityRepository extends ServiceEntityRepository
         parent::__construct($registry, Activity::class);
     }
 
+    // Méthode pour compter le nombre total d'activités pour un utilisateur
+    public function countActivitiesForUser($user)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.author = :user')
+            ->setParameter('user', $user)
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    // Méthode pour calculer la distance totale parcourue par un utilisateur
+    public function sumDistanceForUser($user)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.author = :user')
+            ->setParameter('user', $user)
+            ->select('sum(a.distance)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    // Méthode pour calculer le total des calories brûlées par un utilisateur
+    public function sumCaloriesForUser($user)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.author = :user')
+            ->setParameter('user', $user)
+            ->select('sum(a.calories)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return Activity[] Returns an array of Activity objects
 //     */

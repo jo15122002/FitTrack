@@ -4,40 +4,69 @@
 
 {% block title %}Tableau de Bord{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
 {% block body %}
     <div class="container mt-4">
-        <h1>Tableau de Bord</h1>
+        <h1>Tableau de Bord - Statistiques</h1>
 
         {# Section des Statistiques #}
         <section class="row text-center">
             <div class="col-md-4 mb-4">
                 <div class="card border-primary">
                     <div class="card-body">
-                        <h2 class="card-title">Statistique 1</h2>
-                        <p class="card-text">Détails de la statistique 1</p>
+                        <h2 class="card-title">Nombre Total d'Activités</h2>
+                        <p class="card-text">{{ totalActivities }}</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card border-primary">
                     <div class="card-body">
-                        <h2 class="card-title">Statistique 2</h2>
-                        <p class="card-text">Détails de la statistique 2</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card border-primary">
-                    <div class="card-body">
-                        <h2 class="card-title">Statistique 3</h2>
-                        <p class="card-text">Détails de la statistique 3</p>
+                        <h2 class="card-title">Distance Totale Parcourue</h2>
+                        <p class="card-text">{{ totalDistance }} km</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        {# Autres Sections #}
-        <!-- Vous pouvez ajouter d'autres sections ici, comme des graphiques, des tableaux, etc. -->
+        {# Section Graphique #}
+        <section class="mt-5">
+            <h2>Activités par Semaine (données simulées)</h2>
+            <canvas id="activityChart"></canvas>
+        </section>
 
+        {# Autres Sections #}
+        <!-- Vous pouvez ajouter d'autres sections ici, comme des tableaux de données, des récapitulatifs, etc. -->
     </div>
+
+    {# Initialisation du graphique #}
+    <script>
+        var ctx = document.getElementById('activityChart').getContext('2d');
+        var activityChart = new Chart(ctx, {
+            type: 'bar', // ou 'line', 'pie', etc.
+            data: {
+                labels: {{ activityLabels|json_encode|raw }},
+                datasets: [{
+                    label: 'Nombre d\'activités',
+                    data: {{ activityData|json_encode|raw }},
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
 {% endblock %}
