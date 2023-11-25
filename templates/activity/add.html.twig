@@ -9,15 +9,7 @@
 <header class="bg-primary text-white text-center py-3">
     <h1>Ajouter une activité</h1>
 </header>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        {#    <ul>#}
-        {#        <li><a href="{{ path('dashboard') }}">Tableau de bord</a></li>#}
-        {#        <li><a href="{{ path('activity_list') }}">Liste des activités</a></li>#}
-        {#        <li><a href="{{ path('goal_list') }}">Liste des objectifs</a></li>#}
-        {#    </ul>#}
-    </div>
-</nav>
+
 <main class="container my-4">
     <form method="post" action="{{ path('app_activity_add') }}" class="needs-validation" novalidate>
         {{ form_start(form) }}

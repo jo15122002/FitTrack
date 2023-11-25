@@ -6,7 +6,6 @@
     <div class="container mt-4">
         <h1>Détails du Plan d'Entraînement</h1>
 
-        {# Afficher les détails du plan d'entraînement #}
         <div class="card mb-4">
             <div class="card-body">
                 <h5 class="card-title">{{ workoutPlan.description }}</h5>
@@ -17,13 +16,11 @@
             </div>
         </div>
 
-        {# Boutons d'édition et de suppression #}
         <div>
             <a href="{{ path('app_workout_plan_edit', {'id': workoutPlan.id}) }}" class="btn btn-warning">Éditer ce Plan</a>
             <button type="button" class="btn btn-danger" onclick="confirmDeletion('{{ path('app_workout_plan_delete', {'id': workoutPlan.id}) }}')">Supprimer ce Plan</button>
         </div>
 
-        {# Liste des activités associées au plan d'entraînement #}
         <h2>Activités Associées</h2>
         <ul class="list-group">
             {% for activity in workoutPlan.activities %}
@@ -38,7 +35,6 @@
             {% endfor %}
         </ul>
 
-        {# Lien pour retourner à la liste des plans ou autre navigation #}
         <a href="{{ path('app_workout_plan_list') }}" class="btn btn-primary mt-3">Retour à la liste</a>
     </div>
 

@@ -13,11 +13,9 @@
                     <strong>Échéance:</strong> {{ goal.deadline|date('Y-m-d') }}<br>
                     <strong>Statut:</strong> {{ goal.status }}
                 </p>
-                {# Si vous avez des informations supplémentaires à afficher, ajoutez-les ici #}
             </div>
         </div>
 
-        {# Si vous avez associé des WorkoutPlans à vos Goals, affichez-les ici #}
         <h3>Plans d'Entraînement Associés</h3>
         <ul>
             {% for workoutPlan in goal.workoutPlans %}
@@ -27,7 +25,6 @@
             {% endfor %}
         </ul>
 
-        {# Liens pour l'édition et le retour à la liste #}
         <a href="{{ path('app_goal_edit', {'id': goal.id}) }}" class="btn btn-warning">Éditer</a>
         <a href="{{ path('app_goal_list') }}" class="btn btn-primary">Retour à la liste des objectifs</a>
     </div>

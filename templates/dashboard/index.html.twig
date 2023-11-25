@@ -1,5 +1,3 @@
-{# templates/dashboard/index.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Tableau de Bord{% endblock %}
@@ -13,7 +11,6 @@
     <div class="container mt-4">
         <h1>Tableau de Bord - Statistiques</h1>
 
-        {# Section des Statistiques #}
         <section class="row text-center">
             <div class="col-md-4 mb-4">
                 <div class="card border-primary">
@@ -33,17 +30,12 @@
             </div>
         </section>
 
-        {# Section Graphique #}
         <section class="mt-5">
             <h2>Activités par Semaine (données simulées)</h2>
             <canvas id="activityChart"></canvas>
         </section>
-
-        {# Autres Sections #}
-        <!-- Vous pouvez ajouter d'autres sections ici, comme des tableaux de données, des récapitulatifs, etc. -->
     </div>
 
-    {# Initialisation du graphique #}
     <script>
         var ctx = document.getElementById('activityChart').getContext('2d');
         var activityChart = new Chart(ctx, {
