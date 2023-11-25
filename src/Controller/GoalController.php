@@ -47,7 +47,7 @@ class GoalController extends AbstractController
 
 
             // Redirigez l'utilisateur vers une page appropriée
-            return $this->redirectToRoute('goal_list');
+            return $this->redirectToRoute('app_goal_list');
         }
 
         return $this->render('goal/add.html.twig', [

@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Enum\GoalStatus;
 use App\Repository\GoalRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -27,6 +29,14 @@ class Goal
 
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $status = null;
+
+    #[ORM\ManyToMany(targetEntity: WorkoutPlan::class, inversedBy: 'goals')]
+    private Collection $workoutPlans;
+
+    public function __construct()
+    {
+        $this->workoutPlans = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -77,6 +87,30 @@ class Goal
     public function setStatus(string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, WorkoutPlan>
+     */
+    public function getWorkoutPlans(): Collection
+    {
+        return $this->workoutPlans;
+    }
+
+    public function addWorkoutPlan(WorkoutPlan $workoutPlan): static
+    {
+        if (!$this->workoutPlans->contains($workoutPlan)) {
+            $this->workoutPlans->add($workoutPlan);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkoutPlan(WorkoutPlan $workoutPlan): static
+    {
+        $this->workoutPlans->removeElement($workoutPlan);
 
         return $this;
     }
