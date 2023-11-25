@@ -35,7 +35,9 @@ class WorkoutPlanController extends AbstractController
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
         $workoutPlan = new WorkoutPlan();
-        $form = $this->createForm(WorkoutPlanType::class, $workoutPlan);
+        $form = $this->createForm(WorkoutPlanType::class, $workoutPlan, [
+            'user' => $this->security->getUser(),
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -93,7 +95,9 @@ class WorkoutPlanController extends AbstractController
     public function edit(WorkoutPlanRepository $workoutPlanRepository, int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
         $workoutPlan = $workoutPlanRepository->find($id);
-        $form = $this->createForm(WorkoutPlanType::class, $workoutPlan);
+        $form = $this->createForm(WorkoutPlanType::class, $workoutPlan, [
+            'user' => $this->security->getUser(),
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
