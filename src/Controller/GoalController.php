@@ -80,7 +80,7 @@ class GoalController extends AbstractController
     }
 
     #[Route('/goal/edit/{id}', name: 'app_goal_edit')]
-    public function edit(int $id, GoalRepository $goalRepository, Request $request, EntityManagerInterface $entityManager)
+    public function edit(int $id, GoalRepository $goalRepository, Request $request, EntityManagerInterface $entityManager, Security $security)
     {
         $goal = $goalRepository->find($id);
 
@@ -88,7 +88,9 @@ class GoalController extends AbstractController
             throw $this->createNotFoundException('Objectif non trouvé.');
         }
 
-        $form = $this->createForm(GoalType::class, $goal);
+        $form = $this->createForm(GoalType::class,$goal, [
+            'user' => $security->getUser()
+        ]);
 
         $form->handleRequest($request);
 

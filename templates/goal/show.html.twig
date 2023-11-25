@@ -1,46 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des Objectifs{% endblock %}
+{% block title %}Détails de l'Objectif{% endblock %}
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Mes Objectifs</h1>
+        <h1>Détails de l'Objectif</h1>
 
-        <a href="{{ path('app_goal_add') }}" class="btn btn-success mb-3">Ajouter un nouvel objectif</a>
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ goal.description }}</h5>
+                <p class="card-text">
+                    <strong>Échéance:</strong> {{ goal.deadline|date('Y-m-d') }}<br>
+                    <strong>Statut:</strong> {{ goal.status }}
+                </p>
+                {# Si vous avez des informations supplémentaires à afficher, ajoutez-les ici #}
+            </div>
+        </div>
 
-        <table class="table">
-            <thead class="thead-dark">
-            <tr>
-                <th>Description</th>
-                <th>Échéance</th>
-                <th>Statut</th>
-                <th>Plans d'Entraînement Associés</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for goal in goals %}
-                <tr>
-                    <td>{{ goal.description }}</td>
-                    <td>{{ goal.deadline|date('Y-m-d') }}</td>
-                    <td>{{ goal.status }}</td>
-                    <td>
-                        {% for plan in goal.workoutPlans %}
-                            <span>{{ plan.description }}</span>{% if not loop.last %}, {% endif %}
-                        {% else %}
-                            Aucun plan associé
-                        {% endfor %}
-                    </td>
-                    <td>
-                        <a href="{{ path('app_goal_add_workout_plan', {'id': goal.id}) }}" class="btn btn-sm btn-outline-secondary">Ajouter un Plan</a>
-                    </td>
-                </tr>
+        {# Si vous avez associé des WorkoutPlans à vos Goals, affichez-les ici #}
+        <h3>Plans d'Entraînement Associés</h3>
+        <ul>
+            {% for workoutPlan in goal.workoutPlans %}
+                <li>{{ workoutPlan.description }}</li>
             {% else %}
-                <tr>
-                    <td colspan="5">Aucun objectif trouvé.</td>
-                </tr>
+                <li>Aucun plan d'entraînement associé</li>
             {% endfor %}
-            </tbody>
-        </table>
+        </ul>
+
+        {# Liens pour l'édition et le retour à la liste #}
+        <a href="{{ path('app_goal_edit', {'id': goal.id}) }}" class="btn btn-warning">Éditer</a>
+        <a href="{{ path('app_goal_list') }}" class="btn btn-primary">Retour à la liste des objectifs</a>
     </div>
 {% endblock %}
