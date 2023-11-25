@@ -12,17 +12,14 @@ class DashboardController extends AbstractController
     #[Route('/dashboard', name: 'app_dashboard')]
     public function index(ActivityRepository $activityRepository)
     {
-        // Récupérer les données utilisateur
-        $user = $this->getUser(); // Assurez-vous que l'utilisateur est connecté
+        $user = $this->getUser();
 
         $labels = ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Semaine 4'];
-        $data = [5, 10, 3, 8]; // Exemple de nombres d'activités par semaine
+        $data = [5, 10, 3, 8];
 
-        // Calculer les statistiques
         $totalActivities = $activityRepository->countActivitiesForUser($user);
         $totalDistance = $activityRepository->sumDistanceForUser($user);
 
-        // Renvoyer les données à la vue
         return $this->render('dashboard/index.html.twig', [
             'totalActivities' => $totalActivities,
             'totalDistance' => $totalDistance,

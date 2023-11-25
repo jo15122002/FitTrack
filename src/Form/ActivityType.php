@@ -52,7 +52,7 @@ class ActivityType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'App\Entity\Activity', // Assurez-vous que c'est la classe correcte pour votre entité Activity
+            'data_class' => 'App\Entity\Activity',
         ]);
     }
 }

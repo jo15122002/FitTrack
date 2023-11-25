@@ -62,7 +62,7 @@ class AppFixtures extends Fixture
                 $goal->setDescription('Objectif ' . $k)
                     ->setDeadline(new DateTime('+1 month'))
                     ->setAuthor($user)
-                    ->setStatus('En cours'); // Assurez-vous que cette valeur est valide
+                    ->setStatus('En cours');
 
                 $manager->persist($goal);
             }

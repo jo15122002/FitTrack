@@ -24,7 +24,6 @@ class GoalType extends AbstractType
         $builder
             ->add('description', TextType::class, [
                 'label' => 'Description de l\'objectif',
-                // autres options pour le champ 'description'
             ])
             ->add('deadline', DateTimeType::class, [
                 'label' => 'Date limite',

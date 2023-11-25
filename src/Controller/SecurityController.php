@@ -12,7 +12,6 @@ class SecurityController extends AbstractController
     #[Route('/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // obtenir l'erreur de connexion s'il y en a une
         $error = $authenticationUtils->getLastAuthenticationError();
 
         return $this->render('security/login.html.twig', ['error' => $error]);

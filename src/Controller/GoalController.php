@@ -45,8 +45,6 @@ class GoalController extends AbstractController
             $entityManager->persist($goal);
             $entityManager->flush();
 
-
-            // Redirigez l'utilisateur vers une page appropriée
             return $this->redirectToRoute('app_goal_list');
         }
 
@@ -101,7 +99,6 @@ class GoalController extends AbstractController
             $entityManager->persist($goal);
             $entityManager->flush();
 
-            // Redirigez l'utilisateur vers une page appropriée
             return $this->redirectToRoute('app_goal_list');
         }
 
@@ -122,7 +119,6 @@ class GoalController extends AbstractController
         $entityManager->remove($goal);
         $entityManager->flush();
 
-        // Redirigez l'utilisateur vers une page appropriée
         return $this->redirectToRoute('app_goal_list');
     }
 }

@@ -30,7 +30,6 @@ class WorkoutPlanController extends AbstractController
         ]);
     }
 
-    //add
     #[Route('/workoutplan/add', name: 'app_workout_plan_add')]
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -43,12 +42,9 @@ class WorkoutPlanController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->security->getUser();
             if (!$user) {
-                // Gérer le cas où aucun utilisateur n'est connecté
                 throw $this->createAccessDeniedException('Vous devez être connecté pour créer un plan.');
             }
 
-            // Associer l'utilisateur connecté à l'entité WorkoutPlan
-            // Supposons que votre entité WorkoutPlan a une méthode setUser() pour cela
             $workoutPlan->setAuthor($user);
 
             $entityManager->persist($workoutPlan);
@@ -67,7 +63,6 @@ class WorkoutPlanController extends AbstractController
     {
         $user = $this->security->getUser();
         if (!$user) {
-            // Gérer le cas où aucun utilisateur n'est connecté
             throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
         }
 

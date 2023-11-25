@@ -27,7 +27,7 @@ class WorkoutPlanType extends AbstractType
                         ->where('a.author = :user')
                         ->setParameter('user', $user);
                 },
-                'choice_label' => 'name', // ou tout autre champ représentatif
+                'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
             ])
