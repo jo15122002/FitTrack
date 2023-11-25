@@ -6,9 +6,18 @@
     <div class="container mt-4">
         <h1>Éditer le Plan d'Entraînement</h1>
 
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
+        {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+
+        {% for field in form %}
+            <div class="mb-3">
+                {{ form_label(field) }}
+                {{ form_widget(field, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(field) }}
+            </div>
+        {% endfor %}
+
         <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+
         {{ form_end(form) }}
     </div>
 {% endblock %}
