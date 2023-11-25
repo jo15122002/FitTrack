@@ -32,6 +32,11 @@
                 <li class="nav-item {% if current_route == 'app_workout_plan_list' %}active{% endif %}">
                     <a class="nav-link" href="{{ path('app_workout_plan_list') }}">Plans d'entraînement</a>
                 </li>
+                {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
+                    <li class="nav-item {% if current_route == 'admin_dashboard' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('admin_dashboard') }}">Panel Admin</a>
+                    </li>
+                {% endif %}
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">

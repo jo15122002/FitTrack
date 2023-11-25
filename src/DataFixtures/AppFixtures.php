@@ -70,6 +70,20 @@ class AppFixtures extends Fixture
             $output->writeln('Utilisateur ' . $user->getUsername() . ' et ses données associées créés.');
         }
 
+        $adminUser = new User();
+        $adminUser->setUsername('admin');
+        $adminUser->setEmail('admin@example.com');
+        $adminUser->setRoles(['ROLE_ADMIN']);
+
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $adminUser,
+            'adminpass' // Mot de passe que vous voulez pour l'admin
+        );
+        $adminUser->setPassword($hashedPassword);
+
+        $manager->persist($adminUser);
+        $manager->flush();
+
         $manager->flush();
     }
 }
