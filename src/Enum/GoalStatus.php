@@ -9,4 +9,9 @@ enum GoalStatus: string
     case CANCELLED = "Annulé";
     case IN_PROGRESS = "En cours";
     case FAILED = "échoué";
+
+    public static function getValues(): array
+    {
+        return array_column(self::cases(), 'value');
+    }
 }

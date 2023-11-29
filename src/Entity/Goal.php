@@ -2,7 +2,8 @@
 
 namespace App\Entity;
 
-use App\Enum\GoalStatus;
+
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\GoalRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -18,9 +19,12 @@ class Goal
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "La description de l'objectif est requise.")]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotNull(message: "La date limite est requise.")]
+    #[Assert\Type("\DateTimeInterface", message: "La date n'est pas valide.")]
     private ?\DateTimeInterface $deadline = null;
 
     #[ORM\ManyToOne(inversedBy: 'goals')]
@@ -28,6 +32,8 @@ class Goal
     private ?User $author = null;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(message: "Le statut de l'objectif est requis.")]
+    #[Assert\Choice(callback: ["App\Enum\GoalStatus", "getValues"], message: "Le statut de l'objectif n'est pas valide.")]
     private ?string $status = null;
 
     #[ORM\ManyToMany(targetEntity: WorkoutPlan::class, inversedBy: 'goals')]

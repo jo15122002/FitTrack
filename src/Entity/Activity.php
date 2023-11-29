@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\ActivityRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -18,12 +19,17 @@ class Activity
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\NotNull(message: "La distance ne peut pas être nulle.")]
+    #[Assert\Positive(message: "La distance doit être un nombre positif.")]
     private ?float $distance = null;
 
     #[ORM\Column]
+    #[Assert\NotNull(message: "La durée ne peut pas être nulle.")]
+    #[Assert\Positive(message: "La durée doit être un nombre positif.")]
     private ?float $duration = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotNull(message: "La date ne peut pas être nulle.")]
     private ?DateTime $date = null;
 
     #[ORM\ManyToOne(inversedBy: 'activities')]
@@ -34,9 +40,11 @@ class Activity
     private Collection $workoutPlans;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le type d'activité est requis.")]
     private ?string $type = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom de l'activité est requis.")]
     private ?string $name = null;
 
     public function __construct()

@@ -16,6 +16,10 @@ class WorkoutPlan
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: "La description ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $description = null;
 
     #[ORM\ManyToMany(targetEntity: Activity::class, inversedBy: 'workoutPlans')]

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -18,6 +19,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message: "L'email est requis.")]
+    #[Assert\Email(message: "Le format de l'email est invalide.")]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -27,6 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Un mot de passe est requis.")]
     private ?string $password = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Activity::class, orphanRemoval: true)]
@@ -36,6 +40,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $goals;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom d'utilisateur est requis.")]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: "Le nom d'utilisateur doit comporter au moins {{ limit }} caractères.",
+        maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $username = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: WorkoutPlan::class, orphanRemoval: true)]
