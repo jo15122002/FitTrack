@@ -20,6 +20,7 @@ class Goal
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "La description de l'objectif est requise.")]
+    #[Assert\Length(max: 255, maxMessage: "La description de l'objectif ne doit pas dépasser {{ limit }} caractères.")]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

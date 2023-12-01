@@ -7,7 +7,13 @@
         <h1>Éditer l'Activité</h1>
 
         {{ form_start(form) }}
-        {{ form_widget(form) }}
+        {% for field in form %}
+            <div class="mb-3">
+                {{ form_label(field) }}
+                {{ form_widget(field) }}
+                {{ form_errors(field) }}
+            </div>
+        {% endfor %}
         {{ form_end(form) }}
     </div>
 {% endblock %}
