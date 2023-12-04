@@ -1,3 +1,6 @@
+# Auto-Evaluation
+Je me mettrais 4/5 car je pense me débrouiller assez bien en Symfony, mais je ne pense pas être encore au niveau d'un développeur confirmé. J'ai encore beaucoup de choses à apprendre mais je pense que je suis capable de développer des applications web simples, mais je ne suis pas encore à l'aise avec les applications plus complexes. Je suis capable de m'améliorer et de progresser.
+
 # FitTrack
 
 FitTrack est une application web dédiée au suivi de fitness, permettant aux utilisateurs de suivre leurs activités physiques, de définir des objectifs de fitness et de créer des plans d'entraînement personnalisés.
