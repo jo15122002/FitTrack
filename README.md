@@ -1,7 +1,3 @@
-Un bon `README` est crucial pour tout projet sur GitHub, car il sert de point d'entrée pour quiconque découvre votre code. Voici un exemple de `README` pour votre projet FitTrack, que vous pouvez personnaliser en fonction des détails spécifiques de votre projet :
-
----
-
 # FitTrack
 
 FitTrack est une application web dédiée au suivi de fitness, permettant aux utilisateurs de suivre leurs activités physiques, de définir des objectifs de fitness et de créer des plans d'entraînement personnalisés.
